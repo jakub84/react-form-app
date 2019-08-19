@@ -1,25 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Card, Tabs, Tab } from '@material-ui/core';
+import Form from './components/Form';
+import Output from './components/Output';
 import './App.css';
 
 function App() {
+  const [value, setValue] = useState(0);
+  const handleChangeTab = (_e, newValue) => setValue(newValue);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <Card
+        style={{
+          width: 'calc(100vw - 40px)',
+          margin: '20px',
+        }}
+      >
+        <Tabs value={value} onChange={handleChangeTab}>
+          <Tab label="Form" />
+          <Tab label="List" />
+        </Tabs>
+      </Card>
+      {value === 0 && (
+        <Card
+          style={{
+            width: 'calc(100vw - 40px)',
+            margin: '20px',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Form />
+        </Card>
+      )}
+      {value === 1 && (
+        <Card
+          style={{
+            width: 'calc(100vw - 40px)',
+            margin: '20px',
+          }}
+        >
+          <Output />
+        </Card>
+      )}
+    </>
   );
 }
 
