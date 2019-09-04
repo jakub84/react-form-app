@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardContent, Typography, Grid } from '@material-ui/core';
+// import { CardContent, Typography, Grid } from '@material-ui/core';
 
 const OutputComponent = () => (
   <>
