@@ -1,45 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SingleUser from './SingleUser';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  paper: {
-    padding: '30px 20px',
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  container: {},
-  avatar: {
-    marginRight: '10px',
-  },
-}));
-
-const UserComponent = () => {
-  const classes = useStyles();
-  const [values, setValues] = React.useState([]);
-
-  const handleChange = name => (event) => {
-    setValues({ ...values, [name]: event.target.value });
+class UserComponent extends Component {
+  state = {
+    users: [],
+    editableForm: false,
+    popupVisibility: false,
   };
 
-  useEffect(() => {
+  componentDidMount = () => {
     axios.get('https://jsonplaceholder.typicode.com/users').then((res) => {
-      setValues(res.data);
+      this.setState({
+        users: res.data,
+      });
     });
-  }, []);
-  return (
-    <Grid className={classes.root} container spacing={3}>
-      {values.map(user => (
-        <SingleUser key={user.id} user={user} handleChange={handleChange} />
-      ))}
-    </Grid>
-  );
-};
+  };
+
+  editForm = () => {
+    this.setState({
+      editableForm: true,
+    });
+  };
+
+  showAndHidePopup = () => {
+    const { popupVisibility } = this.state;
+    this.setState({
+      popupVisibility: !popupVisibility,
+      editableForm: false,
+    });
+  };
+
+  onSubmit = (data) => {
+    console.log(data)
+  }
+
+  render() {
+    const { users, editableForm, popupVisibility } = this.state;
+    return (
+      <Grid container spacing={3}>
+        {users.map(user => (
+          <SingleUser
+            showAndHidePopup={this.showAndHidePopup}
+            popupVisibility={popupVisibility}
+            editForm={this.editForm}
+            key={user.id}
+            user={user}
+            editableForm={editableForm}
+            onSubmit={this.onSubmit}
+          />
+        ))}
+      </Grid>
+    );
+  }
+}
 export default UserComponent;

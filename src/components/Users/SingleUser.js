@@ -33,21 +33,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SingleUser = ({ handleChange, user }) => {
+const SingleUser = ({
+  handleChange,
+  user,
+  editableForm,
+  editForm,
+  showAndHidePopup,
+  popupVisibility,
+  onSubmit,
+}) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  // getModalStyle is not a pure function, we roll the style only on the first render
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
-      <PopupWindow open={open} handleClose={handleClose} handleChange={handleChange} user={user} />
+
+      <PopupWindow
+        editForm={editForm}
+        editableForm={editableForm}
+        showAndHidePopup={showAndHidePopup}
+        popupVisibility={popupVisibility}
+        handleChange={handleChange}
+        user={user}
+        onSubmit={onSubmit}
+      />
       <Grid item xl={3} md={4} sm={6} xs={12}>
         <Paper className={classes.paper}>
           <Grid item className={classes.avatarInfo}>
@@ -58,7 +66,7 @@ const SingleUser = ({ handleChange, user }) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleOpen}
+              onClick={showAndHidePopup}
               className={classes.button}
             >
               Details

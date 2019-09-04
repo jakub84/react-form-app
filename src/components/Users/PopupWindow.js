@@ -25,7 +25,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PopupWindow = ({
-  handleChange, user, open, handleClose,
+  user,
+  editableForm,
+  editForm,
+  showAndHidePopup,
+  popupVisibility,
+  handleChange,
+  handleSubmit,
+  values,
 }) => {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const classes = useStyles();
@@ -33,8 +40,8 @@ const PopupWindow = ({
   return (
     <>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={popupVisibility}
+        onClose={showAndHidePopup}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -46,24 +53,25 @@ const PopupWindow = ({
             <form className={classes.container} noValidate autoComplete="off">
               {user.username && <Avatar className={classes.avatar}>{user.name.charAt(0)}</Avatar>}
               <TextField
-                disabled
+                disabled={!editableForm}
                 id="outlined-name"
                 label="Name"
+                name="name"
                 className={classes.textField}
-                value={user.name}
-                onChange={handleChange('name')}
+                // value={values.name}
+                onChange={handleChange}
                 margin="normal"
                 fullWidth
                 multiline
                 variant="outlined"
               />
               <TextField
-                disabled
+                disabled={!editableForm}
                 id="outlined-username"
                 label="Username"
                 className={classes.textField}
                 value={user.username}
-                onChange={handleChange('name')}
+                onChange={handleChange}
                 margin="normal"
                 fullWidth
                 multiline
@@ -71,24 +79,24 @@ const PopupWindow = ({
               />
 
               <TextField
-                disabled
+                disabled={!editableForm}
                 id="outlined-address"
                 label="Address"
                 className={classes.textField}
                 value={`${user.address.street} ${user.address.suite} | ${user.address.city}`}
-                onChange={handleChange('name')}
+                onChange={handleChange}
                 margin="normal"
                 multiline
                 fullWidth
                 variant="outlined"
               />
               <TextField
-                disabled
+                disabled={!editableForm}
                 id="outlined-address"
                 label="Phone"
                 className={classes.textField}
                 value={user.phone}
-                onChange={handleChange('name')}
+                onChange={handleChange}
                 margin="normal"
                 multiline
                 fullWidth
@@ -99,7 +107,7 @@ const PopupWindow = ({
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose}
+                    onClick={showAndHidePopup}
                     className={classes.button}
                   >
                     close
@@ -109,10 +117,20 @@ const PopupWindow = ({
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose}
+                    onClick={editForm}
                     className={classes.button}
                   >
                     edit
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onSubmit={handleSubmit}
+                    className={classes.button}
+                  >
+                    submit
                   </Button>
                 </Grid>
               </Grid>
