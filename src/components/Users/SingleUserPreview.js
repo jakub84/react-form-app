@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid, Paper, Avatar, Typography, Button,
 } from '@material-ui/core';
-import PopupWindow from './PopupWindow';
+import PopupValidator from './PopupValidator';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,40 +33,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SingleUser = ({
-  handleChange,
+const SingleUserEdit = ({
   user,
-  editableForm,
-  editForm,
-  showAndHidePopup,
-  popupVisibility,
-  onSubmit,
+  showUserDetails,
 }) => {
   const classes = useStyles();
 
   return (
     <>
-
-      <PopupWindow
-        editForm={editForm}
-        editableForm={editableForm}
-        showAndHidePopup={showAndHidePopup}
-        popupVisibility={popupVisibility}
-        handleChange={handleChange}
-        user={user}
-        onSubmit={onSubmit}
-      />
       <Grid item xl={3} md={4} sm={6} xs={12}>
         <Paper className={classes.paper}>
           <Grid item className={classes.avatarInfo}>
-            {user.username && <Avatar className={classes.avatar}>{user.name.charAt(0)}</Avatar>}
+            {user.name && <Avatar className={classes.avatar}>{user.name.charAt(0)}</Avatar>}
             <Typography variant="body1">{user.name}</Typography>
           </Grid>
           <Grid item>
             <Button
               variant="contained"
               color="primary"
-              onClick={showAndHidePopup}
+              onClick={() => showUserDetails(user.id)}
               className={classes.button}
             >
               Details
@@ -77,4 +62,4 @@ const SingleUser = ({
     </>
   );
 };
-export default SingleUser;
+export default SingleUserEdit;

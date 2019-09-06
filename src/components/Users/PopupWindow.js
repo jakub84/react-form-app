@@ -25,18 +25,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PopupWindow = ({
-  user,
   editableForm,
   editForm,
   showAndHidePopup,
   popupVisibility,
   handleChange,
+  handleBlur,
   handleSubmit,
+  onSubmit,
   values,
 }) => {
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const classes = useStyles();
-
   return (
     <>
       <Modal
@@ -50,16 +49,19 @@ const PopupWindow = ({
       >
         <div className={classes.modalWindow}>
           <Grid item xs={12}>
-            <form className={classes.container} noValidate autoComplete="off">
-              {user.username && <Avatar className={classes.avatar}>{user.name.charAt(0)}</Avatar>}
+            <form className={classes.container} onSubmit={onSubmit} noValidate autoComplete="off">
+              {values.username && (
+                <Avatar className={classes.avatar}>{values.name.charAt(0)}</Avatar>
+              )}
               <TextField
                 disabled={!editableForm}
                 id="outlined-name"
                 label="Name"
                 name="name"
                 className={classes.textField}
-                // value={values.name}
+                value={values.name}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 margin="normal"
                 fullWidth
                 multiline
@@ -69,9 +71,11 @@ const PopupWindow = ({
                 disabled={!editableForm}
                 id="outlined-username"
                 label="Username"
+                name="username"
                 className={classes.textField}
-                value={user.username}
+                value={values.username}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 margin="normal"
                 fullWidth
                 multiline
@@ -81,23 +85,13 @@ const PopupWindow = ({
               <TextField
                 disabled={!editableForm}
                 id="outlined-address"
-                label="Address"
-                className={classes.textField}
-                value={`${user.address.street} ${user.address.suite} | ${user.address.city}`}
-                onChange={handleChange}
-                margin="normal"
-                multiline
-                fullWidth
-                variant="outlined"
-              />
-              <TextField
-                disabled={!editableForm}
-                id="outlined-address"
                 label="Phone"
+                name="phone"
                 className={classes.textField}
-                value={user.phone}
+                value={values.phone}
                 onChange={handleChange}
                 margin="normal"
+                onBlur={handleBlur}
                 multiline
                 fullWidth
                 variant="outlined"
