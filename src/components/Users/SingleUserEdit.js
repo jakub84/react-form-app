@@ -1,5 +1,5 @@
 import React from 'react';
 import PopupValidator from './PopupValidator';
 
-const SingleUserEdit = ({ ...rest }) => <PopupValidator {...rest} />;
+const SingleUserEdit = ({ ...props }) => <PopupValidator {...props} />;
 export default SingleUserEdit;

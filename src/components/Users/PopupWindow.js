@@ -32,7 +32,6 @@ const PopupWindow = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  onSubmit,
   values,
 }) => {
   const classes = useStyles();
@@ -49,7 +48,12 @@ const PopupWindow = ({
       >
         <div className={classes.modalWindow}>
           <Grid item xs={12}>
-            <form className={classes.container} onSubmit={onSubmit} noValidate autoComplete="off">
+            <form
+              className={classes.container}
+              onSubmit={handleSubmit}
+              noValidate
+              autoComplete="off"
+            >
               {values.username && (
                 <Avatar className={classes.avatar}>{values.name.charAt(0)}</Avatar>
               )}
@@ -104,6 +108,7 @@ const PopupWindow = ({
                     onClick={showAndHidePopup}
                     className={classes.button}
                   >
+
                     close
                   </Button>
                 </Grid>
@@ -114,16 +119,19 @@ const PopupWindow = ({
                     onClick={editForm}
                     className={classes.button}
                   >
+
                     edit
                   </Button>
                 </Grid>
                 <Grid item>
                   <Button
+                    type="submit"
                     variant="contained"
                     color="primary"
-                    onSubmit={handleSubmit}
+                    onClick={handleSubmit}
                     className={classes.button}
                   >
+
                     submit
                   </Button>
                 </Grid>

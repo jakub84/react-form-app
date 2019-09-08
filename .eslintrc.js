@@ -35,6 +35,7 @@ module.exports = {
   },
 
   rules: {
+    "linebreak-style": 0,
     'react/prop-types': ['off'],
     'import/prefer-default-export': ['off'],
     'react/no-array-index-key': ['warn'],

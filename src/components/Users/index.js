@@ -9,19 +9,24 @@ class UserComponent extends Component {
     users: [],
     editableForm: false,
     popupVisibility: false,
-    editUserId: null,
+    editUserId: undefined,
   };
 
-  componentDidMount = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users').then((res) => {
-      const users = res.data;
-      this.setState({ users });
-    });
-  };
+  componentDidMount() {
+    this.update();
+  }
 
   get initialUserData() {
     const { editUserId, users } = this.state;
+    // console.log(typeof users.find(user => user.id  === editUserId).map(user => user.id));
     return users.find(user => user.id === editUserId);
+  }
+
+  update = () => {
+    axios.get('https://jsonplaceholder.typicode.com/users/').then((res) => {
+      const users = res.data;
+      this.setState({ users });
+    });
   }
 
   editForm = () => {
@@ -39,6 +44,14 @@ class UserComponent extends Component {
     });
   };
 
+  fakeUpdate = (newData) => {
+    console.log('newData');
+    const { popupVisibility } = this.state;
+    this.setState({
+      popupVisibility: !popupVisibility,
+    })
+  }
+
   render() {
     const { users, editableForm, popupVisibility } = this.state;
     return (
@@ -53,14 +66,18 @@ class UserComponent extends Component {
           />
         ))}
 
-        <SingleUserEdit
-          showAndHidePopup={this.showUserDetails}
-          popupVisibility={popupVisibility}
-          editForm={this.editForm}
-          userData={this.initialUserData}
-          editableForm={editableForm}
-          handleSubmit={this.handleSubmit}
-        />
+        {this.initialUserData && (
+          <SingleUserEdit
+            showAndHidePopup={this.showUserDetails}
+            popupVisibility={popupVisibility}
+            editForm={this.editForm}
+            userData={this.initialUserData}
+            editableForm={editableForm}
+            update={this.update}
+            fakeUpdate={this.fakeUpdate}
+
+          />
+        )}
       </Grid>
     );
   }

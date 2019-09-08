@@ -33,10 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SingleUserEdit = ({
-  user,
-  showUserDetails,
-}) => {
+const SingleUserEdit = ({ user, showUserDetails }) => {
   const classes = useStyles();
 
   return (
@@ -54,6 +51,7 @@ const SingleUserEdit = ({
               onClick={() => showUserDetails(user.id)}
               className={classes.button}
             >
+
               Details
             </Button>
           </Grid>
