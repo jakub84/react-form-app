@@ -32,6 +32,7 @@ const PopupWindow = ({
   handleChange,
   handleBlur,
   handleSubmit,
+  deleteItem,
   values,
 }) => {
   const classes = useStyles();
@@ -133,6 +134,17 @@ const PopupWindow = ({
                   >
 
                     submit
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={deleteItem}
+                    className={classes.button}
+                  >
+
+                    delete
                   </Button>
                 </Grid>
               </Grid>

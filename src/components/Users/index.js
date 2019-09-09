@@ -27,7 +27,7 @@ class UserComponent extends Component {
       const users = res.data;
       this.setState({ users });
     });
-  }
+  };
 
   editForm = () => {
     this.setState({
@@ -44,13 +44,25 @@ class UserComponent extends Component {
     });
   };
 
-  fakeUpdate = (newData) => {
+  fakeUpdate = (newData, editUserId) => {
     console.log('newData');
-    const { popupVisibility } = this.state;
+    const { popupVisibility, users } = this.state;
+    // const updatedItem = users.find(user => user.id === editUserId);
+    // if (!updatedItem) return;
     this.setState({
       popupVisibility: !popupVisibility,
-    })
-  }
+    });
+  };
+
+  fakeDeleteItem = () => {
+    const { popupVisibility, users, editUserId } = this.state;
+    // const updatedItem = users.find(user => user.id === editUserId);
+    // if (!updatedItem) return;
+    this.setState({
+      popupVisibility: !popupVisibility,
+      users: users.filter(user => user.id !== editUserId),
+    });
+  };
 
   render() {
     const { users, editableForm, popupVisibility } = this.state;
@@ -75,7 +87,7 @@ class UserComponent extends Component {
             editableForm={editableForm}
             update={this.update}
             fakeUpdate={this.fakeUpdate}
-
+            deleteItem={this.fakeDeleteItem}
           />
         )}
       </Grid>
