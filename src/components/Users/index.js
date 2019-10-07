@@ -9,6 +9,7 @@ class UserComponent extends Component {
     users: [],
     editableForm: false,
     popupVisibility: false,
+    readyToSubmit: false,
     editUserId: undefined,
   };
 
@@ -30,8 +31,9 @@ class UserComponent extends Component {
   };
 
   editForm = () => {
+    const { editableForm } = this.state;
     this.setState({
-      editableForm: true,
+      editableForm: !editableForm,
     });
   };
 
@@ -44,35 +46,42 @@ class UserComponent extends Component {
     });
   };
 
-  fakeUpdate = (newData, editUserId) => {
-    console.log('newData');
-    const { popupVisibility, users } = this.state;
-    // const updatedItem = users.find(user => user.id === editUserId);
-    // if (!updatedItem) return;
+  fakeUpdate = (newData) => {
+    const { popupVisibility, users, editUserId } = this.state;
+    const userNewValues = users.map(updatedUser => (updatedUser.id === editUserId
+      ? {
+        ...updatedUser,
+        name: newData.name,
+        surname: newData.surname,
+        phone: newData.phone,
+      }
+      : updatedUser));
     this.setState({
+      users: userNewValues,
+      editUserId: null,
       popupVisibility: !popupVisibility,
     });
   };
 
   fakeDeleteItem = () => {
     const { popupVisibility, users, editUserId } = this.state;
-    // const updatedItem = users.find(user => user.id === editUserId);
-    // if (!updatedItem) return;
     this.setState({
-      popupVisibility: !popupVisibility,
       users: users.filter(user => user.id !== editUserId),
+      popupVisibility: !popupVisibility,
     });
   };
 
   render() {
-    const { users, editableForm, popupVisibility } = this.state;
+    const {
+      users, editableForm, popupVisibility, readyToSubmit,
+    } = this.state;
     return (
       <Grid container spacing={3}>
         {users.map(user => (
           <SingleUserPreview
             popupVisibility={popupVisibility}
             editForm={this.editForm}
-            key={user.id}
+            key={user.id + user.name}
             user={user}
             showUserDetails={this.showUserDetails}
           />
@@ -82,6 +91,7 @@ class UserComponent extends Component {
           <SingleUserEdit
             showAndHidePopup={this.showUserDetails}
             popupVisibility={popupVisibility}
+            readyToSubmit={readyToSubmit}
             editForm={this.editForm}
             userData={this.initialUserData}
             editableForm={editableForm}

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid, Paper, Avatar, Typography, Button,
 } from '@material-ui/core';
-import PopupValidator from './PopupValidator';
 
 const useStyles = makeStyles(theme => ({
   root: {
