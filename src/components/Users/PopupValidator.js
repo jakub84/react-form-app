@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import PopupWindow from './PopupWindow';
 
 const PopupValidator = ({
-  userData, update, fakeUpdate, ...rest
+  userData, update, fakeUpdate, resetId, ...rest
 }) => {
   const [loading, setLoading] = useState(false);
   return (
@@ -17,15 +17,14 @@ const PopupValidator = ({
         axios
           .put(`https://jsonplaceholder.typicode.com/users/${id}`, values)
           .then((response) => {
-            console.log(response.data);
             fakeUpdate(response.data);
             setLoading(false);
             resetForm();
+            resetId();
           })
           .catch((error) => {
             console.log(error);
           });
-        
       }}
       render={({
         touched, errors, values, handleChange, handleBlur, handleSubmit,

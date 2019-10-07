@@ -58,8 +58,13 @@ class UserComponent extends Component {
       : updatedUser));
     this.setState({
       users: userNewValues,
-      editUserId: null,
       popupVisibility: !popupVisibility,
+    });
+  };
+
+  resetId = () => {
+    this.setState({
+      editUserId: undefined,
     });
   };
 
@@ -98,6 +103,7 @@ class UserComponent extends Component {
             update={this.update}
             fakeUpdate={this.fakeUpdate}
             deleteItem={this.fakeDeleteItem}
+            resetId={this.resetId}
           />
         )}
       </Grid>
