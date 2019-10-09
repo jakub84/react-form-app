@@ -10,6 +10,7 @@ class UserComponent extends Component {
     editableForm: false,
     popupVisibility: false,
     editUserId: undefined,
+    confirmVisible: false,
   };
 
   componentDidMount() {
@@ -75,9 +76,16 @@ class UserComponent extends Component {
     });
   };
 
+  showConfirmModal = () => {
+    const { confirmVisible } = this.state;
+    this.setState({
+      confirmVisible: !confirmVisible,
+    });
+  };
+
   render() {
     const {
-      users, editableForm, popupVisibility,
+      users, editableForm, popupVisibility, confirmVisible,
     } = this.state;
     return (
       <Grid container spacing={3}>
@@ -102,6 +110,8 @@ class UserComponent extends Component {
             fakeUpdate={this.fakeUpdate}
             deleteItem={this.fakeDeleteItem}
             resetId={this.resetId}
+            showConfirmModal={this.showConfirmModal}
+            confirmVisible={confirmVisible}
           />
         )}
       </Grid>

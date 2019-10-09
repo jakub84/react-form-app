@@ -3,9 +3,17 @@ import axios from 'axios';
 import { Formik } from 'formik';
 // import * as yup from 'yup';
 import PopupWindow from './PopupWindow';
+import ConfirmDelete from './ConfirmDelete';
 
 const PopupValidator = ({
-  userData, update, fakeUpdate, resetId, ...rest
+  userData,
+  update,
+  fakeUpdate,
+  resetId,
+  showConfirmModal,
+  confirmVisible,
+  deleteItem,
+  ...rest
 }) => {
   const [loading, setLoading] = useState(false);
   return (
@@ -30,13 +38,20 @@ const PopupValidator = ({
         touched, errors, values, handleChange, handleBlur, handleSubmit,
       }) => (
         <>
+          <ConfirmDelete
+            deleteItem={deleteItem}
+            handleOpen={showConfirmModal}
+            confirmVisible={confirmVisible}
+          />
           <PopupWindow
             handleChange={handleChange}
             touched={touched}
             handleBlur={handleBlur}
             errors={errors}
+            confirmVisible={confirmVisible}
             values={values}
             handleSubmit={handleSubmit}
+            showConfirmModal={showConfirmModal}
             loading={loading}
             {...rest}
           />

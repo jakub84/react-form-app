@@ -76,6 +76,7 @@ const PopupWindow = ({
   deleteItem,
   values,
   loading,
+  showConfirmModal,
 }) => {
   const classes = useStyles();
   return (
@@ -209,7 +210,8 @@ const PopupWindow = ({
                     disabled={editableForm}
                     variant="contained"
                     color="secondary"
-                    onClick={deleteItem}
+                    // onClick={deleteItem}
+                    onClick={showConfirmModal}
                     className={classes.button}
                   >
                     delete
