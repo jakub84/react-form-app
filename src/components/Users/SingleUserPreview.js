@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     marginRight: '10px',
-    backgroundColor: 'lightgrey',
+    backgroundColor: theme.palette.third.main,
   },
   avatarInfo: {
     display: 'flex',
@@ -34,14 +34,14 @@ const useStyles = makeStyles(theme => ({
 
 const SingleUserEdit = ({ user, showUserDetails }) => {
   const classes = useStyles();
-
+  const shortName = user.name.length > 20 ? user.name.substring(0, 17).concat('...') : user.name;
   return (
     <>
       <Grid item xl={3} md={4} sm={6} xs={12}>
         <Paper className={classes.paper}>
           <Grid item className={classes.avatarInfo}>
-            {user.name && <Avatar className={classes.avatar}>{user.name.charAt(0)}</Avatar>}
-            <Typography variant="body1">{user.name}</Typography>
+            {user.name && <Avatar className={classes.avatar}>{user.name.charAt(0).toUpperCase()}</Avatar>}
+            <Typography variant="body1">{shortName}</Typography>
           </Grid>
           <Grid item>
             <Button

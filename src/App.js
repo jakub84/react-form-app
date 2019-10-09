@@ -3,7 +3,6 @@ import {
   Card, Tabs, Tab, Container,
 } from '@material-ui/core';
 import Users from './components/Users';
-import Output from './components/Output';
 import './App.css';
 
 function App() {
@@ -19,11 +18,9 @@ function App() {
       >
         <Tabs value={value} onChange={handleChangeTab}>
           <Tab label="Users" />
-          <Tab label="List" />
         </Tabs>
       </Card>
       {value === 0 && <Users />}
-      {value === 1 && <Output />}
     </Container>
   );
 }

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid, TextField, Avatar, Button, Modal, CircularProgress,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -10,14 +11,32 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     marginRight: '10px',
-    backgroundColor: 'lightgrey',
+    backgroundColor: theme.palette.primary.main,
   },
 
   modalWindow: {
     backgroundColor: '#fff',
-    padding: '30px',
+    padding: ' 10px 30px',
     maxWidth: '900px',
     width: '90%',
+    position: 'relative',
+  },
+  close: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: theme.palette.primary.main,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    padding: 0,
+    borderRadius: '0',
+    minWidth: 'unset',
+    width: '40px',
+    height: '40px',
+    color: theme.palette.primary.contrastText,
+    boxShadow: 'none',
   },
   loader: {
     zIndex: 9999999,
@@ -32,7 +51,17 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   buttonsContainer: {
+    display: 'flex',
+    padding: 0,
+  },
+  button: {
+    margin: '5px',
+  },
+  outerButtonsContainer: {
     marginTop: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'no-wrap',
   },
 }));
 
@@ -47,7 +76,6 @@ const PopupWindow = ({
   deleteItem,
   values,
   loading,
-  readyToSubmit,
 }) => {
   const classes = useStyles();
   return (
@@ -64,9 +92,18 @@ const PopupWindow = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          padding: '10px',
         }}
       >
         <div className={classes.modalWindow}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={showAndHidePopup}
+            className={classes.close}
+          >
+            <CloseIcon />
+          </Button>
           <Grid item xs={12}>
             <form
               className={classes.container}
@@ -75,7 +112,7 @@ const PopupWindow = ({
               autoComplete="off"
             >
               {values.username && (
-                <Avatar className={classes.avatar}>{values.name.charAt(0)}</Avatar>
+                <Avatar className={classes.avatar}>{values.name.charAt(0).toUpperCase()}</Avatar>
               )}
               <TextField
                 disabled={!editableForm}
@@ -120,41 +157,54 @@ const PopupWindow = ({
                 fullWidth
                 variant="outlined"
               />
-              <Grid container spacing={1} className={classes.buttonsContainer}>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={showAndHidePopup}
-                    className={classes.button}
-                  >
-                    close
-                  </Button>
+              <TextField
+                disabled={!editableForm}
+                id="notes"
+                label="notes"
+                name="notes"
+                rowsMax="4"
+                rows="4"
+                className={classes.textField}
+                value={values.notes}
+                onChange={handleChange}
+                margin="normal"
+                onBlur={handleBlur}
+                multiline
+                fullWidth
+                variant="outlined"
+              />
+              <Grid container spacing={1} className={classes.outerButtonsContainer}>
+                <Grid className={classes.buttonsContainer}>
+                  <Grid item>
+                    <Button
+                      // disabled={editableForm}
+                      variant="contained"
+                      color="primary"
+                      onClick={editForm}
+                      className={classes.button}
+                    >
+                      {editableForm ? 'Exit Editing' : 'Edit'}
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!editableForm}
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleSubmit}
+                      className={classes.button}
+                    >
+                      submit
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Button
-                    disabled={editableForm}
-                    variant="contained"
-                    color="primary"
-                    onClick={editForm}
-                    className={classes.button}
-                  >
-                    edit
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    disabled={!editableForm}
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSubmit}
-                    className={classes.button}
-                  >
-                    submit
-                  </Button>
-                </Grid>
-                <Grid item>
+                <Grid
+                  item
+                  style={{
+                    padding: '0px',
+                  }}
+                >
                   <Button
                     disabled={editableForm}
                     variant="contained"

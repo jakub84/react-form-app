@@ -9,7 +9,6 @@ class UserComponent extends Component {
     users: [],
     editableForm: false,
     popupVisibility: false,
-    readyToSubmit: false,
     editUserId: undefined,
   };
 
@@ -19,7 +18,6 @@ class UserComponent extends Component {
 
   get initialUserData() {
     const { editUserId, users } = this.state;
-    // console.log(typeof users.find(user => user.id  === editUserId).map(user => user.id));
     return users.find(user => user.id === editUserId);
   }
 
@@ -54,6 +52,7 @@ class UserComponent extends Component {
         name: newData.name,
         surname: newData.surname,
         phone: newData.phone,
+        notes: newData.notes,
       }
       : updatedUser));
     this.setState({
@@ -78,7 +77,7 @@ class UserComponent extends Component {
 
   render() {
     const {
-      users, editableForm, popupVisibility, readyToSubmit,
+      users, editableForm, popupVisibility,
     } = this.state;
     return (
       <Grid container spacing={3}>
@@ -96,7 +95,6 @@ class UserComponent extends Component {
           <SingleUserEdit
             showAndHidePopup={this.showUserDetails}
             popupVisibility={popupVisibility}
-            readyToSubmit={readyToSubmit}
             editForm={this.editForm}
             userData={this.initialUserData}
             editableForm={editableForm}
