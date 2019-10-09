@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <Container style={{ borderBottom: '5px solid #F36E27', borderTop: '5px solid #F36E27', padding: '60px 30px' }} maxWidth="xl">
+    <Container style={{ borderBottom: '5px solid #F36E27', borderTop: '5px solid #F36E27', padding: '60px 30px', minHeight: '100vh' }} maxWidth="xl">
       <Header />
       <Users />
     </Container>

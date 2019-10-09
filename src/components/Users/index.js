@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import SingleUserEdit from './SingleUserEdit';
 import SingleUserPreview from './SingleUserPreview';
+import TextInformation from './TextInformation';
 
 class UserComponent extends Component {
   state = {
@@ -104,6 +105,7 @@ class UserComponent extends Component {
             showUserDetails={this.showUserDetails}
           />
         ))}
+        {users.length === 0 ? <TextInformation content="no data" /> : ''}
 
         {this.initialUserData && (
           <SingleUserEdit

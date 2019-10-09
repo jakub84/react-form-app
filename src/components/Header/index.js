@@ -45,7 +45,7 @@ const Header = () => {
 library and fake api from
         {' '}
         <span className={classes.bold}> jsonplaceholder.typicode.com </span>
-        what means all request only simulate real behavior.
+        which means all requests only simulates real behavior.
       </Typography>
     </Grid>
   );
