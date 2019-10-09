@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   loader: {
     zIndex: 9999999,
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     right: 0,
     left: 0,
@@ -73,7 +73,6 @@ const PopupWindow = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  deleteItem,
   values,
   loading,
   showConfirmModal,

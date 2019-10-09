@@ -73,13 +73,19 @@ class UserComponent extends Component {
     this.setState({
       users: users.filter(user => user.id !== editUserId),
       popupVisibility: !popupVisibility,
+      confirmVisible: false,
     });
   };
 
   showConfirmModal = () => {
-    const { confirmVisible } = this.state;
     this.setState({
-      confirmVisible: !confirmVisible,
+      confirmVisible: true,
+    });
+  };
+
+  closeConfirmModal = () => {
+    this.setState({
+      confirmVisible: false,
     });
   };
 
@@ -111,6 +117,7 @@ class UserComponent extends Component {
             deleteItem={this.fakeDeleteItem}
             resetId={this.resetId}
             showConfirmModal={this.showConfirmModal}
+            closeConfirmModal={this.closeConfirmModal}
             confirmVisible={confirmVisible}
           />
         )}

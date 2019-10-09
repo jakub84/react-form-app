@@ -11,6 +11,7 @@ const PopupValidator = ({
   fakeUpdate,
   resetId,
   showConfirmModal,
+  closeConfirmModal,
   confirmVisible,
   deleteItem,
   ...rest
@@ -42,6 +43,7 @@ const PopupValidator = ({
             deleteItem={deleteItem}
             handleOpen={showConfirmModal}
             confirmVisible={confirmVisible}
+            closeConfirmModal={closeConfirmModal}
           />
           <PopupWindow
             handleChange={handleChange}

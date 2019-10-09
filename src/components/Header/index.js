@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     borderTop: '1px dotted lightGrey',
     borderBottom: '1px dotted lightGrey',
     display: 'inline-block',
+    width: '100%',
     lineHeight: 1.6,
     padding: '20px 0',
     marginBottom: 40,
@@ -36,17 +37,15 @@ const Header = () => {
     <Grid className={classes.headerContainer}>
       <img className={classes.image} src={Logo} alt="Users from api" />
       <Typography className={classes.headerText}>
+        This App uses
         {' '}
-        <span className={classes.bold}>Lorem </span>
-        ipsum dolor sit amet, consectetur adipiscing elit. Etiam suscipit, turpis vel euismod
-        maximus,
+        <span className={classes.bold}>React.js</span>, 
+        <span className={classes.bold}> Material UI</span>
         {' '}
-        <span className={classes.bold}>nibh sapien cursus urna</span>
-, id mattis ligula
-        nibh non nibh. Duis sed velit sed lectus viverra dignissim. Mauris tincidunt tempor enim,
-        eget tincidunt tellus mollis in. Donec quis mattis nulla. Nulla vitae urna sit amet lorem
-        consequat auctor.
+library and fake api from
         {' '}
+        <span className={classes.bold}> jsonplaceholder.typicode.com </span>
+        what means all request only simulate real behavior.
       </Typography>
     </Grid>
   );
